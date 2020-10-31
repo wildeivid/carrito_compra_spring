@@ -3,7 +3,6 @@ package com.carritocompra.app.models.entity;
 import java.io.Serializable;
 import java.util.List;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -35,7 +34,22 @@ public class Carrito implements Serializable{
 	
 	
 
-	
+	public Carrito() {
+		
+	}
+
+	public Carrito(@NotNull String status, Usuario usuario, List<ProductoCarrito> listaProductoCarrito) {
+		this.status = status;
+		this.usuario = usuario;
+		this.listaProductoCarrito = listaProductoCarrito;
+	}
+
+	public Carrito(Long id, @NotNull String status, Usuario usuario, List<ProductoCarrito> listaProductoCarrito) {
+		this.id = id;
+		this.status = status;
+		this.usuario = usuario;
+		this.listaProductoCarrito = listaProductoCarrito;
+	}
 	
 	
 	
@@ -64,9 +78,16 @@ public class Carrito implements Serializable{
 		this.usuario = usuario;
 	}
 
+	public List<ProductoCarrito> getListaProductoCarrito() {
+		return listaProductoCarrito;
+	}
+
+	public void setListaProductoCarrito(List<ProductoCarrito> listaProductoCarrito) {
+		this.listaProductoCarrito = listaProductoCarrito;
+	}
+
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}
-	
 
 }
