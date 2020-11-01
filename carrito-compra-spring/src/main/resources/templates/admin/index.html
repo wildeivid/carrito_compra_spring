@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/head :: head"></head>
+<body>
+	<seccion th:replace="fragments/header :: header"></seccion>
+
+	<div class="container">
+		<h1 th:text="#{plantilla.titulo.principal}" class="font-weight-bold font-italic mt-5"></h1>
+		<div>
+			<ul class="list-group my-2">
+				<li class="list-group-item active"><h3>Opciones de Administrador</h3></li>
+				<li class="list-group-item"><a class="btn btn-success" th:href="@{/tienda}">A comprar!</a></li>
+				<li class="list-group-item"><a class="btn btn-primary" th:href="@{/tienda/mis-compras}">Administrar Compras!</a></li>
+				<li class="list-group-item"><a class="btn btn-danger" th:href="@{/usuarios}">Administrar Usuarios</a></li>
+				<li class="list-group-item"><a class="btn btn-warning" th:href="@{/productos}">Administrar Productos</a></li>
+			</ul>
+		</div>
+	</div>
+	
+	<seccion th:replace="fragments/footer :: footer"></seccion>
+</body>
+</html>

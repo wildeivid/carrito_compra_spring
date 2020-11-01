@@ -1,10 +1,23 @@
 <!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-</head>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/head :: head"></head>
 <body>
+	<seccion th:replace="fragments/header :: header"></seccion>
 
+	<div class="container">
+		<h1 th:text="#{plantilla.titulo.index}" class="font-weight-bold font-italic mt-5"></h1>
+		
+		<div>
+			<ul class="list-group my-2">
+				<li class="list-group-item active"><h3>Opciones</h3></li>
+				<li class="list-group-item"><a class="btn btn-success" th:href="@{/tienda}">A comprar!</a></li>
+				<li class="list-group-item"><a class="btn btn-primary" th:href="@{/tienda/mis-compras}">Mis compras!</a></li>
+				<li class="list-group-item"><a class="btn btn-danger" th:href="@{/usuarios/crear}">Crear Nuevo Usuario!</a></li>
+			</ul>
+		</div>
+		
+	</div>
+	
+	<seccion th:replace="fragments/footer :: footer"></seccion>
 </body>
 </html>
