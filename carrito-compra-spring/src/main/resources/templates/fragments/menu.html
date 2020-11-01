@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+	<div th:fragment="menu">
+		<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+			<a class="navbar-brand" href="#">Menu</a>
+			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+			<div class="collapse navbar-collapse" id="navbarNav" th:with="urlActual = ${#httpServletRequest.requestURI}">
+				<ul class="navbar-nav">
+					<li th:classappend="( ${urlActual}  == @{/} ) ? 'nav-item active' : 'nav-item'"><a class="nav-link" th:href="@{/}">Inicio</a></li>
+					<li th:classappend="( ${urlActual}  == @{/admin} ) ? 'nav-item active' : 'nav-item'"><a class="nav-link" th:href="@{/admin}">Administración</a></li>
+				</ul>
+			</div>
+		</nav>
+	</div>
+</body>
+</html>
