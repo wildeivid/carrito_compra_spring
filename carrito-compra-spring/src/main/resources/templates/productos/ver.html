@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/head :: head"></head>
+<body>
+	<seccion th:replace="fragments/header :: header"></seccion>
+
+	<div class="container">
+		<h1 th:text="#{plantilla.productos.titulo}" class="font-weight-bold font-italic mt-5 border-bottom border-success"></h1>
+		
+		<a class="btn btn-success btn-bg my-2 mb-4" th:href="@{/productos/crear}">Crear Nuevo Producto</a>
+		<a class="btn btn-secondary btn-bg my-2 mb-4" th:href="@{/admin}">Volver</a>
+		
+		<table class="table table-striped">
+			<thead class="thead-dark">
+				<tr>
+					<th scope="col">#</th>
+					<th scope="col">Nombre</th>					
+					<th scope="col">Precio</th>
+					<th scope="col">Descripción</th>
+					<th scope="col">Opciones</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="producto : ${productos}">
+					<th scope="row" th:text="${producto.id}"></th>
+					<td th:text="${producto.nombre}"></td>
+					<td th:text="${producto.sku}"></td>
+					<td th:text="${producto.descripcion}"></td>
+					<td>
+						<a class="btn btn-primary btn-sm" th:href="@{/productos/editar/} + ${producto.id}">Editar</a>
+						<a class="btn btn-danger btn-sm" th:onclick="return confirm('Desea eliminar el producto:  ${producto.nombre} ');" th:href="@{/productos/eliminar/} + ${producto.id}">Eliminar</a>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+		
+	</div>
+	
+	<seccion th:replace="fragments/footer :: footer"></seccion>
+</body>
+</html>
