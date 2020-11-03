@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/head :: head"></head>
+<body>
+	<seccion th:replace="fragments/header :: header"></seccion>
+
+	<div class="container">
+		<div class="row col-md-10">
+			<div class="col clearfix">
+				<h1 th:text="#{plantilla.tienda.titulo}" class="font-weight-bold font-italic mt-5 border-bottom border-success"></h1>
+				<span th:text="'Bienvenido: ' + ${session.usuario.nombre} + ' ' + ${session.usuario.apellido}" class="float-right font-weight-bold font-italic mt-1 mb-5"></span>
+			</div>
+		</div>
+		
+		<a class="btn btn-secondary float-right btn-bg mb-1" th:href="@{/}">Volver</a>
+				
+		<h3 th:text="#{plantilla.tienda.compras.tituloLista}" class="font-weight-bold font-italic mb-1"></h3>
+		
+		<table class="table table-striped">
+			<thead class="thead-dark">
+				<tr>
+					<th scope="col">#</th>
+					<th scope="col">Status</th>	
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="compra : ${compras}">
+					<th scope="row" th:text="${compra.id}"></th>
+					<td th:text="${compra.status}"></td>
+				</tr>
+			</tbody>
+		</table>
+		
+	</div>
+	
+	<seccion th:replace="fragments/footer :: footer"></seccion>
+</body>
+</html>

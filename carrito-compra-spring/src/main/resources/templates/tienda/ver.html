@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/head :: head"></head>
+<body>
+	<seccion th:replace="fragments/header :: header"></seccion>
+
+	<div class="container">
+		<div class="row col-md-10">
+			<div class="col clearfix">
+				<h1 th:text="#{plantilla.tienda.titulo}" class="font-weight-bold font-italic mt-5 border-bottom border-success"></h1>
+				<span th:text="'Bienvenido: ' + ${session.usuario.nombre} + ' ' + ${session.usuario.apellido}" class="float-right font-weight-bold font-italic mt-1 mb-5"></span>
+			</div>
+		</div>
+		
+		<a class="btn btn-success float-right btn-bg mb-1" th:href="@{/tienda/carrito}" th:text="'Ver Carrito (' + ${cantidadProductoAtCarrito} + ')'">Ver Carrito</a>
+		<a class="btn btn-secondary float-right btn-bg mb-1" th:href="@{/}">Volver</a>
+				
+		<h3 th:text="#{plantilla.tienda.tituloLista}" class="font-weight-bold font-italic mb-1"></h3>
+		
+		<table class="table table-striped">
+			<thead class="thead-dark">
+				<tr>
+					<th scope="col">#</th>
+					<th scope="col">Producto</th>					
+					<th scope="col">Precio</th>
+					<th scope="col">Opciones</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="producto : ${productos}">
+					<th scope="row" th:text="${producto.id}"></th>
+					<td th:text="${producto.nombre}"></td>
+					<td th:text="${producto.sku}"></td>
+					<td>
+						<a class="btn btn-primary btn-sm" th:href="@{/tienda/add-producto/} + ${producto.id}">Añadir al Carrito</a>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+		
+	</div>
+	
+	<seccion th:replace="fragments/footer :: footer"></seccion>
+</body>
+</html>
