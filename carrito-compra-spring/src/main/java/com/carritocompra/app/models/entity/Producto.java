@@ -14,7 +14,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 @Entity
-@Table(name = "products")
+@Table(name = "productos")
 public class Producto implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
@@ -30,7 +30,7 @@ public class Producto implements Serializable {
 	
 	@NotNull
 	@Column(nullable = false)
-	private BigDecimal sku;
+	private BigDecimal precio;
 	
 	@NotBlank
 	@Size(min=3, max=150)
@@ -45,20 +45,20 @@ public class Producto implements Serializable {
 	}
 
 	public Producto(@NotBlank @Size(min = 3, max = 50) String nombre, 
-			@NotNull BigDecimal sku,
+			@NotNull BigDecimal precio,
 			@NotBlank @Size(min = 3, max = 150) String descripcion) {
 		this.nombre = nombre;
-		this.sku = sku;
+		this.precio = precio;
 		this.descripcion = descripcion;
 	}
 
 	public Producto(Long id, 
 			@NotBlank @Size(min = 3, max = 50) String nombre, 
-			@NotNull BigDecimal sku,
+			@NotNull BigDecimal precio,
 			@NotBlank @Size(min = 3, max = 150) String descripcion) {
 		this.id = id;
 		this.nombre = nombre;
-		this.sku = sku;
+		this.precio = precio;
 		this.descripcion = descripcion;
 	}
 	
@@ -81,12 +81,12 @@ public class Producto implements Serializable {
 		this.nombre = nombre;
 	}
 
-	public BigDecimal getSku() {
-		return sku;
+	public BigDecimal getPrecio() {
+		return precio;
 	}
 
-	public void setSku(BigDecimal sku) {
-		this.sku = sku;
+	public void setPrecio(BigDecimal precio) {
+		this.precio = precio;
 	}
 
 	public String getDescripcion() {

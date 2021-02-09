@@ -2,9 +2,7 @@ package com.carritocompra.app.controllers;
 
 import java.math.BigDecimal;
 import java.util.List;
-
 import javax.servlet.http.HttpSession;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,16 +10,13 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-
 import com.carritocompra.app.models.entity.Carrito;
 import com.carritocompra.app.models.entity.Producto;
-import com.carritocompra.app.models.entity.ProductoCarrito;
+import com.carritocompra.app.models.entity.CarritoProducto;
 import com.carritocompra.app.models.entity.ProductoFinal;
 import com.carritocompra.app.models.entity.Usuario;
 import com.carritocompra.app.models.service.ICarritoService;
-import com.carritocompra.app.models.service.IProductoCarritoService;
+import com.carritocompra.app.models.service.ICarritoProductoService;
 import com.carritocompra.app.models.service.IProductoService;
 import com.carritocompra.app.models.service.ITiendaService;
 import com.carritocompra.app.models.service.IUsuarioService;
@@ -46,7 +41,7 @@ public class TiendaController {
 	private ICarritoService iCarritoService;
 	
 	@Autowired
-	private IProductoCarritoService iProductoCarritoService;
+	private ICarritoProductoService iProductoCarritoService;
 	
 	
 	@GetMapping("/tienda")
@@ -58,10 +53,9 @@ public class TiendaController {
 		this.usuario = this.iUsuarioService.buscarUsuarioPorId(Long.valueOf(1));
 		session.setAttribute("usuario", this.usuario);
 		
-		//this.carrito = new Carrito();
-		this.carrito = this.iCarritoService.buscarAndAsignarCarrito(this.usuario);
+		this.carrito = this.iCarritoService.asignarCarrito(this.usuario);
 		
-		int cantidadProductoAtCarrito = this.iProductoCarritoService.cantidadProductoIntoCarrito(this.carrito);
+		int cantidadProductoAtCarrito = this.iProductoCarritoService.cantidadProductoAlCarrito(this.carrito);
 		
 		model.addAttribute("productos", this.iProductoService.listaProductos());
 		model.addAttribute("cantidadProductoAtCarrito", cantidadProductoAtCarrito);
@@ -74,11 +68,11 @@ public class TiendaController {
 		Producto producto = new Producto();
 		producto = this.iProductoService.buscarProductoPorId(idProducto);
 		
-		ProductoCarrito productoCarrito = new ProductoCarrito();
-		productoCarrito = this.iProductoCarritoService.isExisteProductoIntoCarrito(this.carrito, producto);
+		CarritoProducto productoCarrito = new CarritoProducto();
+		productoCarrito = this.iProductoCarritoService.isExisteProductoEnElCarrito(this.carrito, producto);
 		
 		if(null == productoCarrito.getId()) {
-			this.iTiendaService.addProductoToCarrito(this.carrito, producto);
+			this.iTiendaService.agregarProductoAlCarrito(this.carrito, producto);
 		}else {
 			this.iProductoCarritoService.incrementarProductoCarrito(productoCarrito);
 		}
@@ -100,8 +94,8 @@ public class TiendaController {
 	}
 	
 	@GetMapping("/tienda/carrito/eliminar/{id}")
-	public String eliminarOfCarrito(@PathVariable(value = "id") Long id, Model model) {
-		this.iProductoCarritoService.eliminarOfCarrito(id);
+	public String eliminarProductoDelCarrito(@PathVariable(value = "id") Long id, Model model) {
+		this.iProductoCarritoService.eliminarProductoDelCarrito(id);
 		
 		return "redirect:/tienda/carrito";
 	}
@@ -123,14 +117,14 @@ public class TiendaController {
 	
 	@GetMapping("/tienda/mis-compras/{id}")
 	public String misCompras(@PathVariable(value = "id") Long id, Model model) {
-		model.addAttribute("compras", this.iCarritoService.misCompras(id));
+		model.addAttribute("compras", this.iCarritoService.misCompras(this.iUsuarioService.buscarUsuarioPorId(id)));
 		
 		return "tienda/miscompras";
 	}
 	
 	@PostMapping("/tienda/carrito/edit-producto")
-	public String modificarCantidadOfProductoOfCarrito(@ModelAttribute(name = "quantity") Integer quantity, @ModelAttribute(value = "idProductoCarrito") Long id, Model model) {
-		this.iProductoCarritoService.modificarCantidadOfProductoOfCarrito(id, quantity);
+	public String modificarCantidadOfProductoOfCarrito(@ModelAttribute(name = "cantidad") Integer cantidad, @ModelAttribute(value = "idProductoCarrito") Long id, Model model) {
+		this.iProductoCarritoService.modificarCantidadDeProductoDelCarrito(id, cantidad);
 		
 		return "redirect:/tienda/carrito";
 	}

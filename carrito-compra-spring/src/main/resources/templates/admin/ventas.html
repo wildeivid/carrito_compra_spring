@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/head :: head"></head>
+<body>
+	<seccion th:replace="fragments/header :: header"></seccion>
+
+	<div class="container">
+		<div class="row col-md-10">
+			<div class="col clearfix">
+				<h1 th:text="#{plantilla.ventas.titulo}" class="font-weight-bold font-italic mt-5 border-bottom border-success"></h1>
+				<span th:text="'Bienvenido: ' + ${session.usuario.nombre} + ' ' + ${session.usuario.apellido}" class="float-right font-weight-bold font-italic mt-1 mb-5"></span>
+			</div>
+		</div>
+		
+		<a class="btn btn-secondary float-right btn-bg mb-1" th:href="@{/admin}">Volver</a>
+				
+		<h3 th:text="#{plantilla.ventas.tituloLista}" class="font-weight-bold font-italic mb-1"></h3>
+		<h5 th:text="'Total de Ventas: ' + ${cantidadVentasTotales}"></h5>
+		<table class="table table-striped">
+			<thead class="thead-dark">
+				<tr>
+					<th scope="col"># Factura</th>
+					<th scope="col">Estado</th>					
+					<th scope="col">Total</th>
+					<th scope="col">Opciones</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="carrito : ${carritos}">
+					<th scope="row" th:text="${carrito.id}"></th>
+					<td th:text="${carrito.status}"></td>
+					<td th:text="${carrito.total}"></td>
+					<td>
+						<a class="btn btn-primary btn-sm" th:href="@{/admin/ventas/detalle/} + ${carrito.id}" th:if="${carrito.status} == 'COMPLETED'">Detalle de Venta</a>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+		
+	</div>
+	
+	<seccion th:replace="fragments/footer :: footer"></seccion>
+</body>
+</html>

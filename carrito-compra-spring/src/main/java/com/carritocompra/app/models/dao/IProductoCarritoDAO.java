@@ -2,23 +2,18 @@ package com.carritocompra.app.models.dao;
 
 import com.carritocompra.app.models.entity.Carrito;
 import com.carritocompra.app.models.entity.Producto;
-import com.carritocompra.app.models.entity.ProductoCarrito;
-import com.carritocompra.app.models.entity.ProductoFinal;
+import com.carritocompra.app.models.entity.CarritoProducto;
 
 import java.util.List;
 
-public interface IProductoCarritoDAO {
+import org.springframework.data.repository.CrudRepository;
+
+public interface IProductoCarritoDAO extends CrudRepository<CarritoProducto, Long>{
 	
-	public ProductoCarrito isExisteProductoIntoCarrito(Carrito carrito, Producto producto);
+	public List<CarritoProducto> findByCarrito(Carrito carrito);
 	
-	public void incrementarProductoCarrito(ProductoCarrito productoCarrito);
+	public int countByCarrito(Carrito carrito);
 	
-	public int cantidadProductoIntoCarrito(Carrito carrito);
-	
-	public List<ProductoFinal> listarProductosCarrito(Carrito carrito);
-	
-	public void eliminarOfCarrito(Long id);
-	
-	public void modificarCantidadOfProductoOfCarrito(Long id, Integer quantity);
+	public CarritoProducto findByCarritoAndProducto(Carrito carrito, Producto producto);
 	
 }

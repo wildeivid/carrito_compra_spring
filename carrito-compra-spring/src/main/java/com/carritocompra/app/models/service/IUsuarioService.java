@@ -6,7 +6,7 @@ import com.carritocompra.app.models.entity.Usuario;
 
 public interface IUsuarioService {
 	
-public List<Usuario> listarUsuarios();
+	public List<Usuario> listarUsuarios();
 	
 	public void guardarUsuario(Usuario usuario);
 	

@@ -26,9 +26,9 @@
 			</div>
 		</div>
 		
-		<a class="btn btn-secondary float-right btn-bg mb-1" th:href="@{/tienda}">Seguir Comprando</a>
+		<a class="btn btn-secondary float-right btn-bg mb-1" th:href="@{/admin/ventas}">Volver</a>
 				
-		<h3 th:text="#{plantilla.carrito.tituloLista}" class="font-weight-bold font-italic mb-1"></h3>
+		<h3 th:text="#{plantilla.ventas.tituloLista}" class="font-weight-bold font-italic mb-1"></h3>
 		
 		<table class="table table-striped">
 			<thead class="thead-dark">
@@ -38,31 +38,20 @@
 					<th scope="col">Cantidad</th>			
 					<th scope="col">Precio</th>
 					<th scope="col">Sub Total</th>	
-					<th scope="col">Opciones</th>
 				</tr>
 			</thead>
 			<tbody>
-				<tr th:each="productoC : ${productosCarrito}">
-					<th scope="row" th:text="${productoC.productoCarrito.id}"></th>
+				<tr th:each="productoC : ${productos}">
+					<th scope="row" th:text="${productoC.carrito.id}"></th>
 					<td th:text="${productoC.producto.nombre}"></td>
-					<td>
-						<form th:id="'formQuantity' + ${productoC.productoCarrito.id}" th:action="@{/tienda/carrito/edit-producto}" method="post">
-							<input type="number" th:id="'cantidad'" name="cantidad" min="1" th:onchange="'return enviar(this);'"  th:value="${productoC.productoCarrito.cantidad}" />
-							<input type="hidden" name="idProductoCarrito" th:value="${productoC.productoCarrito.id}" />
-						</form>
-					</td>
+					<td th:text="${productoC.cantidad}"></td>
 					<td th:text="${productoC.producto.precio}"></td>
-					<td th:text="${productoC.subTotal}"></td>
-					<td>
-						<a class="btn btn-primary btn-sm" onclick="return confirm('Por favor. Confirme si desea eliminar el producto del carrito.');" th:href="@{/tienda/carrito/eliminar/} + ${productoC.productoCarrito.id}">Eliminar</a>
-					</td>
+					<td th:text="${productoC.producto.precio * productoC.cantidad}"></td>
 				</tr>
 			</tbody>
 		</table>
 		
-		<h4 class="font-weight-bold font-italic text-success" th:text="'Total a Pagar: ' + ${total}"></h4>
-		
-		<a class="btn btn-success float-right btn-bg mb-1" th:href="@{/tienda/carrito/checkout/} + ${idCarrito}" th:if="${total > 0}">Checkout</a>
+		<h4 class="font-weight-bold font-italic text-success" th:text="'Total Pagado: ' + ${total}"></h4>
 		
 	</div>
 	

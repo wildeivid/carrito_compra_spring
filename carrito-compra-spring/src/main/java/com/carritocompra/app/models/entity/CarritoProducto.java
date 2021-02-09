@@ -14,8 +14,8 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
 @Entity
-@Table(name = "product_cars")
-public class ProductoCarrito implements Serializable {
+@Table(name = "carritos_productos")
+public class CarritoProducto implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
 	
@@ -33,25 +33,25 @@ public class ProductoCarrito implements Serializable {
 	
 	@NotNull
 	@Column(nullable = false)
-	private Integer quantity;
+	private Integer cantidad;
 	
 	
 	
-	public ProductoCarrito() {
+	public CarritoProducto() {
 		
 	}
 
-	public ProductoCarrito(Producto producto, Carrito carrito, @NotNull Integer quantity) {
+	public CarritoProducto(Producto producto, Carrito carrito, @NotNull Integer cantidad) {
 		this.producto = producto;
 		this.carrito = carrito;
-		this.quantity = quantity;
+		this.cantidad = cantidad;
 	}
 
-	public ProductoCarrito(Long id, Producto producto, Carrito carrito, @NotNull Integer quantity) {
+	public CarritoProducto(Long id, Producto producto, Carrito carrito, @NotNull Integer cantidad) {
 		this.id = id;
 		this.producto = producto;
 		this.carrito = carrito;
-		this.quantity = quantity;
+		this.cantidad = cantidad;
 	}
 	
 	
@@ -80,12 +80,12 @@ public class ProductoCarrito implements Serializable {
 		this.carrito = carrito;
 	}
 
-	public Integer getQuantity() {
-		return quantity;
+	public Integer getCantidad() {
+		return cantidad;
 	}
 
-	public void setQuantity(Integer quantity) {
-		this.quantity = quantity;
+	public void setCantidad(Integer cantidad) {
+		this.cantidad = cantidad;
 	}
 
 	public static long getSerialversionuid() {

@@ -2,30 +2,24 @@ package com.carritocompra.app.models.entity;
 
 import java.io.Serializable;
 import java.util.Date;
-import java.util.List;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Index;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Past;
 import javax.validation.constraints.Size;
-
-import org.hibernate.validator.constraints.UniqueElements;
 import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
-@Table(indexes = {@Index(name = "user_name_index", columnList = "user_name", unique = true)})
+@Table(name = "usuarios", indexes = {@Index(name = "user_name_index", columnList = "user_name", unique = true)})
 public class Usuario implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
@@ -59,8 +53,6 @@ public class Usuario implements Serializable {
 	@Past
 	private Date fechaNacimiento;
 	
-	@OneToMany(targetEntity = Carrito.class)
-	private List<Carrito> listaCarritos;
 	
 	
 	
@@ -92,22 +84,6 @@ public class Usuario implements Serializable {
 		this.email = email;
 		this.userName = userName;
 		this.fechaNacimiento = fechaNacimiento;
-	}
-
-	public Usuario(Long id, 
-			@NotBlank String nombre, 
-			@NotBlank String apellido,
-			@Email @NotBlank @Size(min = 3, max = 100) String email, 
-			@NotBlank @Size(min = 3, max = 10) String userName,
-			@NotNull Date fechaNacimiento, 
-			List<Carrito> listaCarritos) {
-		this.id = id;
-		this.nombre = nombre;
-		this.apellido = apellido;
-		this.email = email;
-		this.userName = userName;
-		this.fechaNacimiento = fechaNacimiento;
-		this.listaCarritos = listaCarritos;
 	}
 	
 	
@@ -162,14 +138,6 @@ public class Usuario implements Serializable {
 
 	public static long getSerialversionuid() {
 		return serialVersionUID;
-	}
-
-	public List<Carrito> getListaCarritos() {
-		return listaCarritos;
-	}
-
-	public void setListaCarritos(List<Carrito> listaCarritos) {
-		this.listaCarritos = listaCarritos;
 	}
 	
 }
