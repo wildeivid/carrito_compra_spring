@@ -1,21 +1,11 @@
 package com.carritocompra.app.models.dao;
 
-import java.util.List;
+import org.springframework.data.repository.CrudRepository;
 
 import com.carritocompra.app.models.entity.Usuario;
 
-public interface IUsuarioDAO {
+public interface IUsuarioDAO  extends CrudRepository<Usuario, Long>{
 	
-	public List<Usuario> listarUsuarios();
 	
-	public void guardarUsuario(Usuario usuario);
-	
-	public void editarUsuario(Usuario usuario);
-	
-	public void eliminarUsuario(Long idUsuario);
-	
-	public Usuario buscarUsuarioPorId(Long idUsuario);
-	
-	public Usuario buscarUsuario(Usuario usuario);
 	
 }

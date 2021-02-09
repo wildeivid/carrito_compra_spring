@@ -5,6 +5,6 @@ import com.carritocompra.app.models.entity.Producto;
 
 public interface ITiendaService {
 	
-	public void addProductoToCarrito(Carrito carrito, Producto producto);
+	public void agregarProductoAlCarrito(Carrito carrito, Producto producto);
 	
 }

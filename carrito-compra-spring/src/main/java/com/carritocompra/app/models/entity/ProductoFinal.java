@@ -7,26 +7,30 @@ public class ProductoFinal implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
-	private ProductoCarrito productoCarrito;
+	private CarritoProducto productoCarrito;
 	private Producto producto;
 	private BigDecimal subTotal;
-	private BigDecimal total;
 
 	public ProductoFinal() {
 
 	}
+	
+	public ProductoFinal(CarritoProducto productoCarrito, Producto producto) {
+		this.productoCarrito = productoCarrito;
+		this.producto = producto;
+	}
 
-	public ProductoFinal(ProductoCarrito productoCarrito, Producto producto, BigDecimal subTotal) {
+	public ProductoFinal(CarritoProducto productoCarrito, Producto producto, BigDecimal subTotal) {
 		this.productoCarrito = productoCarrito;
 		this.producto = producto;
 		this.subTotal = subTotal;
 	}
 
-	public ProductoCarrito getProductoCarrito() {
+	public CarritoProducto getProductoCarrito() {
 		return productoCarrito;
 	}
 
-	public void setProductoCarrito(ProductoCarrito productoCarrito) {
+	public void setProductoCarrito(CarritoProducto productoCarrito) {
 		this.productoCarrito = productoCarrito;
 	}
 
@@ -43,7 +47,7 @@ public class ProductoFinal implements Serializable {
 	}
 
 	public BigDecimal getSubTotal() {
-		return subTotal;
+		return subTotal != null ? subTotal : producto.getPrecio().multiply(new BigDecimal(productoCarrito.getCantidad()));
 	}
 
 	public void setSubTotal(BigDecimal subTotal) {
