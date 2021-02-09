@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/head :: head"></head>
+<body>
+	<seccion th:replace="fragments/header :: header"></seccion>
+	
+	<script type="text/javascript">
+		function enviar(form) {
+			  var formulario = form.parentNode;
+			  var dato = form.value;
+			  if (dato >= 1) {
+			    formulario.submit();
+			    return true;
+			  } else {
+			    alert("No puede estar en cero, para eso elimine el producto.. Gracias..!");
+			    return false;
+			  }
+		}
+	</script>
+	
+	<div class="container">
+		<div class="row col-md-10">
+			<div class="col clearfix">
+				<h1 th:text="#{plantilla.carrito.titulo}" class="font-weight-bold font-italic mt-5 border-bottom border-success"></h1>
+				<span th:text="'Bienvenido: ' + ${session.usuario.nombre} + ' ' + ${session.usuario.apellido}" class="float-right font-weight-bold font-italic mt-1 mb-5"></span>
+			</div>
+		</div>
+		
+		<a class="btn btn-secondary float-right btn-bg mb-1" th:href="@{/admin/ventas}">Volver</a>
+				
+		<h3 th:text="#{plantilla.ventas.tituloLista}" class="font-weight-bold font-italic mb-1"></h3>
+		
+		<table class="table table-striped">
+			<thead class="thead-dark">
+				<tr>
+					<th scope="col">#</th>
+					<th scope="col">Producto</th>	
+					<th scope="col">Cantidad</th>			
+					<th scope="col">Precio</th>
+					<th scope="col">Sub Total</th>	
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="productoC : ${productos}">
+					<th scope="row" th:text="${productoC.carrito.id}"></th>
+					<td th:text="${productoC.producto.nombre}"></td>
+					<td th:text="${productoC.cantidad}"></td>
+					<td th:text="${productoC.producto.precio}"></td>
+					<td th:text="${productoC.producto.precio * productoC.cantidad}"></td>
+				</tr>
+			</tbody>
+		</table>
+		
+		<h4 class="font-weight-bold font-italic text-success" th:text="'Total Pagado: ' + ${total}"></h4>
+		
+	</div>
+	
+	<seccion th:replace="fragments/footer :: footer"></seccion>
+</body>
+</html>
