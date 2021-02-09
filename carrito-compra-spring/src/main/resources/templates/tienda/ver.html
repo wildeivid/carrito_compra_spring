@@ -30,7 +30,7 @@
 				<tr th:each="producto : ${productos}">
 					<th scope="row" th:text="${producto.id}"></th>
 					<td th:text="${producto.nombre}"></td>
-					<td th:text="${producto.sku}"></td>
+					<td th:text="${producto.precio}"></td>
 					<td>
 						<a class="btn btn-primary btn-sm" th:href="@{/tienda/add-producto/} + ${producto.id}">Añadir al Carrito</a>
 					</td>

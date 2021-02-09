@@ -19,37 +19,37 @@ public class ProductoService implements IProductoService {
 	@Override
 	@Transactional(readOnly = true)
 	public List<Producto> listaProductos() {
-		return this.productoDao.listaProductos();
+		return (List<Producto>) this.productoDao.findAll();
 	}
 
 	@Override
 	@Transactional
 	public void guardarProducto(Producto producto) {
-		this.productoDao.guardarProducto(producto);
+		this.productoDao.save(producto);
 	}
 
 	@Override
 	@Transactional
 	public void editarProducto(Producto producto) {
-		this.productoDao.editarProducto(producto);
+		this.productoDao.save(producto);
 	}
 
 	@Override
 	@Transactional
 	public void eliminarProducto(Long id) {
-		this.productoDao.eliminarProducto(id);
+		this.productoDao.deleteById(id);
 	}
 
 	@Override
 	@Transactional(readOnly = true)
 	public Producto buscarProductoPorId(Long id) {
-		return this.productoDao.buscarProductoPorId(id);
+		return this.productoDao.findById(id).orElse(null);
 	}
 
 	@Override
 	@Transactional(readOnly = true)
 	public Producto buscarProducto(Producto producto) {
-		return this.productoDao.buscarProducto(producto);
+		return this.productoDao.findById(producto.getId()).orElse(null);
 	}
 
 }

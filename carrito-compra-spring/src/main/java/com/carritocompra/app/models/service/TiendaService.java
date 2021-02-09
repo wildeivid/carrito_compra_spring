@@ -7,6 +7,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.carritocompra.app.models.dao.ITiendaDAO;
 import com.carritocompra.app.models.entity.Carrito;
 import com.carritocompra.app.models.entity.Producto;
+import com.carritocompra.app.models.entity.CarritoProducto;
 
 @Service
 public class TiendaService implements ITiendaService {
@@ -17,8 +18,9 @@ public class TiendaService implements ITiendaService {
 	
 	@Transactional
 	@Override
-	public void addProductoToCarrito(Carrito carrito, Producto producto) {
-		this.iTiendaDAO.addProductoToCarrito(carrito, producto);		
+	public void agregarProductoAlCarrito(Carrito carrito, Producto producto) {
+		CarritoProducto productoCarrito = new CarritoProducto(producto, carrito, 1);
+		this.iTiendaDAO.save(productoCarrito);
 	}
 
 }

@@ -47,11 +47,11 @@
 					<td th:text="${productoC.producto.nombre}"></td>
 					<td>
 						<form th:id="'formQuantity' + ${productoC.productoCarrito.id}" th:action="@{/tienda/carrito/edit-producto}" method="post">
-							<input type="number" th:id="'quantity'" name="quantity" min="1" th:onchange="'return enviar(this);'"  th:value="${productoC.productoCarrito.quantity}" />
+							<input type="number" th:id="'cantidad'" name="cantidad" min="1" th:onchange="'return enviar(this);'"  th:value="${productoC.productoCarrito.cantidad}" />
 							<input type="hidden" name="idProductoCarrito" th:value="${productoC.productoCarrito.id}" />
 						</form>
 					</td>
-					<td th:text="${productoC.producto.sku}"></td>
+					<td th:text="${productoC.producto.precio}"></td>
 					<td th:text="${productoC.subTotal}"></td>
 					<td>
 						<a class="btn btn-primary btn-sm" onclick="return confirm('Por favor. Confirme si desea eliminar el producto del carrito.');" th:href="@{/tienda/carrito/eliminar/} + ${productoC.productoCarrito.id}">Eliminar</a>

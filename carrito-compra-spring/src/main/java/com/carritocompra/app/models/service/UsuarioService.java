@@ -19,37 +19,37 @@ public class UsuarioService implements IUsuarioService {
 	@Override
 	@Transactional(readOnly = true)
 	public List<Usuario> listarUsuarios() {
-		return this.usuarioDao.listarUsuarios();
+		return (List<Usuario>) this.usuarioDao.findAll();
 	}
 
 	@Override
 	@Transactional
 	public void guardarUsuario(Usuario usuario) {
-		this.usuarioDao.guardarUsuario(usuario);
+		this.usuarioDao.save(usuario);
 	}
 
 	@Override
 	@Transactional
 	public void editarUsuario(Usuario usuario) {
-		this.usuarioDao.editarUsuario(usuario);
+		this.usuarioDao.save(usuario);
 	}
 
 	@Override
 	@Transactional
 	public void eliminarUsuario(Long id) {
-		this.usuarioDao.eliminarUsuario(id);
+		this.usuarioDao.deleteById(id);
 	}
 
 	@Override
 	@Transactional(readOnly = true)
 	public Usuario buscarUsuarioPorId(Long idUsuario) {
-		return this.usuarioDao.buscarUsuarioPorId(idUsuario);
+		return this.usuarioDao.findById(idUsuario).orElse(null);
 	}
 
 	@Override
 	@Transactional(readOnly = true)
 	public Usuario buscarUsuario(Usuario usuario) {
-		return this.usuarioDao.buscarUsuario(usuario);
+		return this.usuarioDao.findById(usuario.getId()).orElse(null);
 	}
 
 }

@@ -1,10 +1,10 @@
 package com.carritocompra.app.models.dao;
 
-import com.carritocompra.app.models.entity.Carrito;
-import com.carritocompra.app.models.entity.Producto;
+import org.springframework.data.repository.CrudRepository;
+import com.carritocompra.app.models.entity.CarritoProducto;
 
-public interface ITiendaDAO {
+public interface ITiendaDAO extends CrudRepository<CarritoProducto, Long> {
 	
-	public void addProductoToCarrito(Carrito carrito, Producto producto);
+	
 	
 }
