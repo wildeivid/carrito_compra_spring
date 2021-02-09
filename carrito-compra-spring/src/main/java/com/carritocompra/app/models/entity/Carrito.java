@@ -36,7 +36,7 @@ public class Carrito implements Serializable{
 	@Nullable
 	private BigDecimal total;
 	
-	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
 	@JoinColumn(name = "carrito_id")
 	private List<CarritoProducto> listaProductoCarrito;
 	
@@ -108,7 +108,7 @@ public class Carrito implements Serializable{
 	public BigDecimal getTotalCalculado() {
 		BigDecimal total = new BigDecimal(0);
 		
-		for (CarritoProducto productoCarrito : listaProductoCarrito) {
+		for (CarritoProducto productoCarrito : this.getListaProductoCarrito()) {
 			total = total.add(productoCarrito.getProducto().getPrecio().multiply(new BigDecimal(productoCarrito.getCantidad())));
 		}
 		

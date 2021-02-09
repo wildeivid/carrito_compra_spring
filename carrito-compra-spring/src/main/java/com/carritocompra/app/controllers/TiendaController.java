@@ -46,14 +46,7 @@ public class TiendaController {
 	
 	@GetMapping("/tienda")
 	public String listarProductosTienda(Model model, HttpSession session) {
-		if(null != session.getAttribute("usuario")) {
-			session.removeAttribute("usuario");
-		}
-		
-		this.usuario = this.iUsuarioService.buscarUsuarioPorId(Long.valueOf(1));
-		session.setAttribute("usuario", this.usuario);
-		
-		this.carrito = this.iCarritoService.asignarCarrito(this.usuario);
+		this.crearSession(session);
 		
 		int cantidadProductoAtCarrito = this.iProductoCarritoService.cantidadProductoAlCarrito(this.carrito);
 		
@@ -110,7 +103,11 @@ public class TiendaController {
 	}
 	
 	@GetMapping("/tienda/carrito/checkout/{id}")
-	public String checkout(@PathVariable(value = "id") Long id, Model model) {
+	public String checkout(@PathVariable(value = "id") Long id, Model model, HttpSession session) {
+		if(this.carrito == null) {
+			this.crearSession(session);
+		}
+		
 		this.iCarritoService.checkoutCarrito(this.carrito);
 		return "redirect:/";
 	}
@@ -127,6 +124,17 @@ public class TiendaController {
 		this.iProductoCarritoService.modificarCantidadDeProductoDelCarrito(id, cantidad);
 		
 		return "redirect:/tienda/carrito";
+	}
+	
+	private void crearSession(HttpSession session) {
+		if(null != session.getAttribute("usuario")) {
+			session.removeAttribute("usuario");
+		}
+		
+		this.usuario = this.iUsuarioService.buscarUsuarioPorId(Long.valueOf(1));
+		session.setAttribute("usuario", this.usuario);
+		
+		this.carrito = this.iCarritoService.asignarCarrito(this.usuario);
 	}
 	
 }
